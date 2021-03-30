@@ -78,18 +78,12 @@ final class IntegrationRegistryTest extends TestCase
                 'default_integrations' => true,
             ]),
             [
-                'The "Sentry\\Integration\\ExceptionListenerIntegration" integration has been installed.',
-                'The "Sentry\\Integration\\ErrorListenerIntegration" integration has been installed.',
-                'The "Sentry\\Integration\\FatalErrorListenerIntegration" integration has been installed.',
                 'The "Sentry\\Integration\\RequestIntegration" integration has been installed.',
                 'The "Sentry\\Integration\\TransactionIntegration" integration has been installed.',
                 'The "Sentry\\Integration\\FrameContextifierIntegration" integration has been installed.',
                 'The "Sentry\\Integration\\EnvironmentIntegration" integration has been installed.',
             ],
             [
-                ExceptionListenerIntegration::class => new ExceptionListenerIntegration(),
-                ErrorListenerIntegration::class => new ErrorListenerIntegration(),
-                FatalErrorListenerIntegration::class => new FatalErrorListenerIntegration(),
                 RequestIntegration::class => new RequestIntegration(),
                 TransactionIntegration::class => new TransactionIntegration(),
                 FrameContextifierIntegration::class => new FrameContextifierIntegration(),
@@ -124,9 +118,6 @@ final class IntegrationRegistryTest extends TestCase
                 ],
             ]),
             [
-                'The "Sentry\\Integration\\ExceptionListenerIntegration" integration has been installed.',
-                'The "Sentry\\Integration\\ErrorListenerIntegration" integration has been installed.',
-                'The "Sentry\\Integration\\FatalErrorListenerIntegration" integration has been installed.',
                 'The "Sentry\\Integration\\RequestIntegration" integration has been installed.',
                 'The "Sentry\\Integration\\TransactionIntegration" integration has been installed.',
                 'The "Sentry\\Integration\\FrameContextifierIntegration" integration has been installed.',
@@ -135,9 +126,6 @@ final class IntegrationRegistryTest extends TestCase
                 "The \"$integration2ClassName\" integration has been installed.",
             ],
             [
-                ExceptionListenerIntegration::class => new ExceptionListenerIntegration(),
-                ErrorListenerIntegration::class => new ErrorListenerIntegration(),
-                FatalErrorListenerIntegration::class => new FatalErrorListenerIntegration(),
                 RequestIntegration::class => new RequestIntegration(),
                 TransactionIntegration::class => new TransactionIntegration(),
                 FrameContextifierIntegration::class => new FrameContextifierIntegration(),
@@ -156,9 +144,6 @@ final class IntegrationRegistryTest extends TestCase
                 ],
             ]),
             [
-                'The "Sentry\\Integration\\ExceptionListenerIntegration" integration has been installed.',
-                'The "Sentry\\Integration\\ErrorListenerIntegration" integration has been installed.',
-                'The "Sentry\\Integration\\FatalErrorListenerIntegration" integration has been installed.',
                 'The "Sentry\\Integration\\RequestIntegration" integration has been installed.',
                 'The "Sentry\\Integration\\FrameContextifierIntegration" integration has been installed.',
                 'The "Sentry\\Integration\\EnvironmentIntegration" integration has been installed.',
@@ -166,9 +151,6 @@ final class IntegrationRegistryTest extends TestCase
                 "The \"$integration1ClassName\" integration has been installed.",
             ],
             [
-                ExceptionListenerIntegration::class => new ExceptionListenerIntegration(),
-                ErrorListenerIntegration::class => new ErrorListenerIntegration(),
-                FatalErrorListenerIntegration::class => new FatalErrorListenerIntegration(),
                 RequestIntegration::class => new RequestIntegration(),
                 FrameContextifierIntegration::class => new FrameContextifierIntegration(),
                 EnvironmentIntegration::class => new EnvironmentIntegration(),
@@ -210,6 +192,25 @@ final class IntegrationRegistryTest extends TestCase
                 'integrations' => static function (array $defaultIntegrations): array {
                     return $defaultIntegrations;
                 },
+            ]),
+            [
+                'The "Sentry\\Integration\\RequestIntegration" integration has been installed.',
+                'The "Sentry\\Integration\\TransactionIntegration" integration has been installed.',
+                'The "Sentry\\Integration\\FrameContextifierIntegration" integration has been installed.',
+                'The "Sentry\\Integration\\EnvironmentIntegration" integration has been installed.',
+            ],
+            [
+                RequestIntegration::class => new RequestIntegration(),
+                TransactionIntegration::class => new TransactionIntegration(),
+                FrameContextifierIntegration::class => new FrameContextifierIntegration(),
+                EnvironmentIntegration::class => new EnvironmentIntegration(),
+            ],
+        ];
+
+        yield 'Default integrations with DSN set' => [
+            new Options([
+                'dsn' => 'http://public@example.com/sentry/1',
+                'default_integrations' => true,
             ]),
             [
                 'The "Sentry\\Integration\\ExceptionListenerIntegration" integration has been installed.',

@@ -12,6 +12,8 @@ use GuzzleHttp\Promise\PromiseInterface;
 use Sentry\ClientBuilder;
 use Sentry\ErrorHandler;
 use Sentry\Event;
+use Sentry\Integration\ErrorListenerIntegration;
+use Sentry\Integration\FatalErrorListenerIntegration;
 use Sentry\Options;
 use Sentry\Response;
 use Sentry\ResponseStatus;
@@ -46,7 +48,14 @@ $transportFactory = new class implements TransportFactoryInterface {
     }
 };
 
-$client = ClientBuilder::create([])
+$options = [
+    'integrations' => [
+        new ErrorListenerIntegration(),
+        new FatalErrorListenerIntegration(),
+    ],
+];
+
+$client = ClientBuilder::create($options)
     ->setTransportFactory($transportFactory)
     ->getClient();
 

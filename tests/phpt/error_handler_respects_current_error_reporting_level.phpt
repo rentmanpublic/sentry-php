@@ -11,6 +11,9 @@ declare(strict_types=1);
 namespace Sentry\Tests;
 
 use Sentry\ClientBuilder;
+use Sentry\Integration\ErrorListenerIntegration;
+use Sentry\Integration\ExceptionListenerIntegration;
+use Sentry\Integration\FatalErrorListenerIntegration;
 use Sentry\SentrySdk;
 
 $vendor = __DIR__;
@@ -21,14 +24,20 @@ while (!file_exists($vendor . '/vendor')) {
 
 require $vendor . '/vendor/autoload.php';
 
-$client = ClientBuilder::create([
+$options = [
+    'integrations' => [
+        new ErrorListenerIntegration(),
+        new FatalErrorListenerIntegration(),
+    ],
     'error_types' => null,
     'before_send' => static function () {
         echo 'Before send callback called' . PHP_EOL;
 
         return null;
     },
-])->getClient();
+];
+
+$client = ClientBuilder::create($options)->getClient();
 
 SentrySdk::getCurrentHub()->bindClient($client);
 
